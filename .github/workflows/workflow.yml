@@ -49,9 +49,10 @@ jobs:
           name: build-output
 
       - name: Run linters
-        run: ./mvnw --batch-mode --no-transfer-progress --errors --fail-at-end -T 1C \
-          -pl '!build-report-aggregate' \
-          spotless:check modernizer:modernizer spotbugs:check pmd:check pmd:cpd-check
+        run: |
+          ./mvnw --batch-mode --no-transfer-progress --errors --fail-at-end -T 1C \
+            -pl '!build-report-aggregate' \
+            spotless:check modernizer:modernizer spotbugs:check pmd:check pmd:cpd-check
 
 
   test:
