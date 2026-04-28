@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Bot Api
+  title: Bot API
   version: 1.0.0
   contact:
     name: Roman Bazarnoff
@@ -27,7 +27,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
-
 components:
   schemas:
     ApiErrorResponse:
@@ -60,4 +59,4 @@ components:
           type: array
           items:
             type: integer
-            formate: int64
+            format: int64
