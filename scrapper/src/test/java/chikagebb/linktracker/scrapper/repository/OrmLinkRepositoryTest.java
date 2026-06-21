@@ -5,5 +5,4 @@ import org.springframework.test.context.TestPropertySource;
 
 @ActiveProfiles("test")
 @TestPropertySource(properties = "app.access-type=ORM")
-public class OrmLinkRepositoryTest extends AbstractLinkRepositoryTest {
-}
+public class OrmLinkRepositoryTest extends AbstractLinkRepositoryTest {}

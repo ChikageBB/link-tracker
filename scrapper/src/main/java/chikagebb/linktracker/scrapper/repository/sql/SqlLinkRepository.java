@@ -156,9 +156,9 @@ public class SqlLinkRepository implements LinkRepository {
     @Override
     @Transactional
     public boolean delete(Long chatId, URI url) {
-       int rowsDeleted = jdbcTemplate.update(DELETE, chatId, url.toString());
+        int rowsDeleted = jdbcTemplate.update(DELETE, chatId, url.toString());
 
-       return rowsDeleted > 0;
+        return rowsDeleted > 0;
     }
 
     @Override

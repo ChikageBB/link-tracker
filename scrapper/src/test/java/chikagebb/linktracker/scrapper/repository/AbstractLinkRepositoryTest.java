@@ -1,17 +1,16 @@
 package chikagebb.linktracker.scrapper.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import jakarta.persistence.EntityManager;
+import java.net.URI;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import java.net.URI;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Testcontainers
@@ -55,6 +54,6 @@ public abstract class AbstractLinkRepositoryTest extends PostgresContainerBase {
     void addDuplicateLink_shouldThrow() {
         linkRepository.save(CHAT_ID, URI.create(URL), List.of());
         assertThatThrownBy(() -> linkRepository.save(CHAT_ID, URI.create(URL), List.of()))
-            .isInstanceOf(Exception.class);
+                .isInstanceOf(Exception.class);
     }
 }
