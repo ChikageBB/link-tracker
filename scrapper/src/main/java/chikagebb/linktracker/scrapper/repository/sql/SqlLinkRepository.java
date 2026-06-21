@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @RequiredArgsConstructor
@@ -106,6 +107,12 @@ public class SqlLinkRepository implements LinkRepository {
         LIMIT ? OFFSET ?
         """;
 
+    private static final String DELETE = """
+        DELETE FROM chat_links
+        WHERE chat_id = ? AND
+              link_id = (SELECT id FROM links WHERE url = ?)
+        """;
+
     private static final String COUNT_BY_DOMAIN = """
         SELECT COUNT(*) FROM links WHERE url LIKE ?
         """;
@@ -144,6 +151,14 @@ public class SqlLinkRepository implements LinkRepository {
         List<LinkDto> result = jdbcTemplate.query(FIND_BY_URL, ROW_MAPPER, chatId, url.toString());
 
         return result.stream().findFirst();
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(Long chatId, URI url) {
+       int rowsDeleted = jdbcTemplate.update(DELETE, chatId, url.toString());
+
+       return rowsDeleted > 0;
     }
 
     @Override

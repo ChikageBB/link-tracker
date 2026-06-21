@@ -34,4 +34,6 @@ public interface LinkRepository {
     List<LinkDto> findOldestChecked(int page, int size);
 
     long countByDomain(String domainPattern);
+
+    boolean delete(Long chatId, URI url);
 }

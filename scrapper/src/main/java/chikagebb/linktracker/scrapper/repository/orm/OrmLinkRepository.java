@@ -75,6 +75,13 @@ public class OrmLinkRepository implements LinkRepository {
 
     @Override
     @Transactional
+    public boolean delete(Long chatId, URI url) {
+        Chat chat = chatJpaRepository.findById(chatId).orElseThrow();
+        return chat.getLinks().removeIf(l -> l.getUrl().equals(url.toString()));
+    }
+
+    @Override
+    @Transactional
     public void deleteAllForChat(Long chatId) {
         chatLinkTagRepository.deleteByChatId(chatId);
         chatJpaRepository.findById(chatId).ifPresent(chat -> chat.getLinks().clear());

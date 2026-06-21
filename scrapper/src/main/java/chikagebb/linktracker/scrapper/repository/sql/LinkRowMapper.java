@@ -21,7 +21,7 @@ public class LinkRowMapper implements RowMapper<LinkDto> {
         List<String> tags = tagsArray != null ? Arrays.asList((String[]) tagsArray.getArray()) : List.of();
 
         LinkDto linkDto = new LinkDto(id, url, tags);
-        linkDto.setLastCheckAt(rs.getObject("last_checked_at", OffsetDateTime.class));
+        linkDto.setLastCheckAt(rs.getObject("last_check_at", OffsetDateTime.class));
 
         return linkDto;
     }

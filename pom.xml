@@ -64,7 +64,7 @@
         <spring-cloud.version>2025.1.1</spring-cloud.version>
         <spring-grpc.version>1.0.2</spring-grpc.version>
         <springdoc.version>3.0.1</springdoc.version>
-        <testcontainers.version>1.21.0</testcontainers.version>
+        <testcontainers.version>2.0.3</testcontainers.version>
         <wiremock-grpc.version>0.11.0</wiremock-grpc.version>
         <wiremock-spring-boot.version>4.1.0</wiremock-spring-boot.version>
 
