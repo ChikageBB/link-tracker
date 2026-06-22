@@ -218,7 +218,28 @@
 
     <build>
         <plugins>
-            <!-- To build OCI image: https://docs.spring.io/spring-boot/maven-plugin/build-image.html -->
+            <plugin>
+                <groupId>io.github.ascopes</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>${protobuf-maven-plugin.version}</version>
+                <configuration>
+                    <protocVersion>${protobuf-java.version}</protocVersion>
+                    <binaryMavenPlugins>
+                        <binaryMavenPlugin>
+                            <groupId>io.grpc</groupId>
+                            <artifactId>protoc-gen-grpc-java</artifactId>
+                            <version>${grpc.version}</version>
+                        </binaryMavenPlugin>
+                    </binaryMavenPlugins>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
