@@ -64,10 +64,10 @@
         <spring-cloud.version>2025.1.1</spring-cloud.version>
         <spring-grpc.version>1.0.2</spring-grpc.version>
         <springdoc.version>3.0.1</springdoc.version>
-        <testcontainers.version>1.21.0</testcontainers.version>
+        <testcontainers.version>2.0.3</testcontainers.version>
         <wiremock-grpc.version>0.11.0</wiremock-grpc.version>
         <wiremock-spring-boot.version>4.1.0</wiremock-spring-boot.version>
-
+        <protobuf-maven-plugin.version>3.1.2</protobuf-maven-plugin.version>
         <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
         <maven-pmd-plugin.version>3.28.0</maven-pmd-plugin.version>
@@ -75,7 +75,6 @@
         <openapi-generator-maven-plugin.version>7.19.0</openapi-generator-maven-plugin.version>
         <palantir-java-format.version>2.86.0</palantir-java-format.version>
         <pmd.version>7.21.0</pmd.version>
-        <protobuf-maven-plugin.version>0.6.1</protobuf-maven-plugin.version>
         <spotbugs-findsecbugs-plugin.version>1.14.0</spotbugs-findsecbugs-plugin.version>
         <spotbugs-maven-plugin.version>${spotbugs.version}.2</spotbugs-maven-plugin.version>
         <spotbugs-slf4j-plugin.version>1.5.0</spotbugs-slf4j-plugin.version>
@@ -228,6 +227,13 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement>

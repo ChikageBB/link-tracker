@@ -30,10 +30,10 @@
         <Package name="~.*\.api\.LinksApi"/>
     </Match>
     <Match>
-        <Package name="~backend\.academy\.linktracker\.grpc.*"/>
+        <Package name="~.*\.grpc.*"/>
     </Match>
     <Match>
-        <Package name="~backend\.academy\.linktracker\.avro.*"/>
+        <Package name="~.*\.avro.*"/>
     </Match>
 
     <Match>
