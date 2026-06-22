@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-public class BotClient implements NotificationClient {
+public class BotHttpClient implements NotificationClient {
 
     private final UpdatesApi updatesApi;
 

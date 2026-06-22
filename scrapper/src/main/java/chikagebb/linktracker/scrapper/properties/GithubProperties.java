@@ -20,5 +20,5 @@ public class GithubProperties {
     private String token;
 
     @NotEmpty(message = "Базовый URL (baseUrl) не должен быть пустым")
-    private String baseUr;
+    private String baseUrl;
 }

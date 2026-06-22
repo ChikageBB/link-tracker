@@ -80,7 +80,7 @@ public class GithubClient {
                     "/repos/{owner}/{repo}/commits?per_page=1&since={since}",
                     GithubCommit[].class,
                     owner,
-                    restClient,
+                    repo,
                     since.toString());
 
             if (items == null || items.length == 0) return Optional.empty();

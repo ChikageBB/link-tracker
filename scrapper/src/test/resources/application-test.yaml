@@ -7,5 +7,24 @@ spring:
       ddl-auto: none
 
 app:
-
   access-type: ORM
+  github:
+    token: test
+    base-url: http://localhost
+  stackoverflow:
+    key: test
+    access-token: test
+    base-url: http://localhost
+  scheduler:
+    interval: 60000
+    batch-size: 100
+    thread-count: 4
+clients:
+  bot:
+    base-url: http://localhost:8080
+    connect-timeout: 5s
+    read-timeout: 5s
+  scrapper:
+    base-url: http://localhost:8081
+    connect-timeout: 5s
+    read-timeout: 5s

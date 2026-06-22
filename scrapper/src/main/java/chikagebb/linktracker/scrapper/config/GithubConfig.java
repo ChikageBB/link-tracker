@@ -13,7 +13,7 @@ public class GithubConfig {
     @Bean
     public RestClient githubRestClient(GithubProperties props) {
         return RestClient.builder()
-                .baseUrl(props.getBaseUr())
+                .baseUrl(props.getBaseUrl())
                 .defaultHeader("Authorization", "Bearer " + props.getToken())
                 .defaultHeader("Accept", "application/json")
                 .build();

@@ -15,7 +15,7 @@ public record ClientsProperties(
         ClientProperties bot,
 
         @Valid @NotNull(message = "Настройки скраппера не должны быть пустыми")
-        ClientsProperties scrapper) {
+        ClientProperties scrapper) {
 
     public record ClientProperties(
             @NotBlank(message = "Базовый URL (baseUrl) не должен быть пустым")
