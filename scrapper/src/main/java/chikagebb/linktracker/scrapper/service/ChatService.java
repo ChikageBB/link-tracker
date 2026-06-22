@@ -3,7 +3,6 @@ package chikagebb.linktracker.scrapper.service;
 import chikagebb.linktracker.scrapper.repository.ChatRepository;
 import chikagebb.linktracker.scrapper.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,4 +33,3 @@ public class ChatService {
         chatRepository.remove(chatId);
     }
 }
-
