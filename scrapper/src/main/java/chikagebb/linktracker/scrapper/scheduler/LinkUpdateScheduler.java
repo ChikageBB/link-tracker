@@ -31,17 +31,16 @@ public class LinkUpdateScheduler {
 
     @Scheduled(fixedDelayString = "${app.scheduler.interval}")
     public void checkUpdates() {
-        int offset = 0;
-        int fetchCount;
+        int page = 0;
+        int size = props.getBatchSize();
 
         Map<Long, List<LinkDto>> batch;
 
         do {
-            batch = linkRepository.findAllLinkSubscriber(props.getBatchSize(), offset);
-            fetchCount = batch.values().stream().mapToInt(List::size).sum();
+            batch = linkRepository.findAllLinkSubscriber(page, size);
             processBatch(batch);
-            offset += fetchCount;
-        } while (fetchCount == props.getBatchSize());
+            page++;
+        } while (!batch.isEmpty());
     }
 
     private void processBatch(Map<Long, List<LinkDto>> batch) {
