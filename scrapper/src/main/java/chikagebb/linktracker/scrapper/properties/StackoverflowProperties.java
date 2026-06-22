@@ -21,5 +21,5 @@ public class StackoverflowProperties {
     private String accessToken;
 
     @NotEmpty(message = "Базовый URL (baseUrl) не должен быть пустым")
-    private String baseUr;
+    private String baseUrl;
 }
