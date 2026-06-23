@@ -32,6 +32,16 @@ app:
     interval: 60000
     batch-size: 100
     thread-count: 4
+  kafka:
+    topic:
+      name: link-updates
+      partitions: 3
+      replicas: 3
+      min-insync-replicas: 2
+    schema-registry-url: ${SCHEMA_REGISTRY_URL:http://localhost:8085}
+  outbox:
+    interval: 2000
+    max-attempts: 5
 clients:
   bot:
     base-url: http://localhost:8080
