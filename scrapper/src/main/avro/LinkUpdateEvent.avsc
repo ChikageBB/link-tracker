@@ -1,0 +1,27 @@
+{
+    "type": "record",
+    "name": "LinkUpdateEvent",
+    "namespace": "chikagebb.linktracker.avro",
+    "fields": [
+        {
+            "name": "id",
+            "type": "long",
+            "doc": "Id ссылки"
+        },
+        {
+            "name":"url",
+            "type": "string",
+            "doc": "Ссылка"
+        },
+        {
+            "name": "description",
+            "type": "string",
+            "doc": "Описание изменений"
+        },
+        {
+            "name": "tgChatId",
+            "type": "long",
+            "doc": "Id чата"
+        }
+    ]
+}
