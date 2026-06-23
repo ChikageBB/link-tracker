@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.URL;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
@@ -15,13 +14,12 @@ import org.springframework.validation.annotation.Validated;
 @Setter
 @Validated
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "app.kafka.topic")
+@ConfigurationProperties(prefix = "app.kafka")
 public class KafkaTopicProperties {
 
     @Valid
     private Topic topic;
 
-    @URL(message = "Некорректный URL Schema Registry")
     @NotBlank(message = "URL Schema Registry не должен быть пустым")
     private String schemaRegistryUrl;
 

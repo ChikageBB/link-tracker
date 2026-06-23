@@ -10,7 +10,7 @@ public interface OutboxEventRepository extends JpaRepository<OutboxEvent, Long> 
 
     @Query(value = """
             SELECT * FROM outbox_events
-            WHERE publishet_at IS NULL
+            WHERE published_at IS NULL
                 AND status = 'PENDING'
                 AND attempts < :maxAttempts
             ORDER BY created_at

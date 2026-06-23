@@ -4,6 +4,7 @@ import chikagebb.linktracker.scrapper.properties.KafkaTopicProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.config.TopicConfig;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 @RequiredArgsConstructor
 @EnableConfigurationProperties(KafkaTopicProperties.class)
+@ConditionalOnExpression("'${app.communication.type}'.equals('kafka') || '${app.communication.type}'.equals('outbox')")
 public class KafkaConfig {
 
     private final KafkaTopicProperties props;
