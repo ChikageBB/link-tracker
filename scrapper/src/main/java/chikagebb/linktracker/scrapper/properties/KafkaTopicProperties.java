@@ -1,27 +1,47 @@
 package chikagebb.linktracker.scrapper.properties;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Setter
+@Validated
 @NoArgsConstructor
 @ConfigurationProperties(prefix = "app.kafka.topic")
 public class KafkaTopicProperties {
 
-    @NotEmpty(message = "Имя топика не должно быть пустым")
-    private String name;
+    @Valid
+    private Topic topic;
 
-    @Positive(message = "Количество партиций должно быть больше 0")
-    private int partitions;
+    @URL(message = "Некорректный URL Schema Registry")
+    @NotBlank(message = "URL Schema Registry не должен быть пустым")
+    private String schemaRegistryUrl;
 
-    @Positive(message = "Количество реплик должно быть больше 0")
-    private int replicas;
+    @Getter
+    @Setter
+    public static class Topic {
 
-    @Positive(message = "Минимальное количество синхронных реплик должно быть больше 0")
-    private int minInsyncReplicas;
+        @NotEmpty(message = "Имя топика не должно быть пустым")
+        private String name;
+
+        @Positive(message = "Количество партиций должно быть больше 0")
+        private int partitions;
+
+        @Positive(message = "Количество реплик должно быть больше 0")
+        private int replicas;
+
+        @Positive(message = "Минимальное количество синхронных реплик должно быть больше 0")
+        private int minInsyncReplicas;
+
+        @Positive(message = "Время хранения сообщений в топике должно быть больше 0")
+        private long retentionMs;
+    }
 }
