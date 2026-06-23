@@ -9,12 +9,12 @@ spring:
 app:
   access-type: ORM
   github:
-    token: test
-    base-url: http://localhost
+    base-url: ${github.base-url:https://api.github.com}
+    token: ${GITHUB_TOKEN}
   stackoverflow:
-    key: test
-    access-token: test
-    base-url: http://localhost
+    base-url: ${stackoverflow.base-url:https://api.stackexchange.com/2.3}
+    key: ${STACKOVERFLOW_KEY:test-key}
+    access-token: ${STACKOVERFLOW_ACCESS_KEY:test-token}
   scheduler:
     interval: 60000
     batch-size: 100

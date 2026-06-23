@@ -11,3 +11,13 @@ app:
     token: ${TELEGRAM_TOKEN}
     update-listener-sleep: 1s
     debug: false
+
+clients:
+  bot:
+    base-url: http://localhost:8080
+    connect-timeout: 5s
+    read-timeout: 5s
+  scrapper:
+    base-url: http://localhost:8081
+    connect-timeout: 5s
+    read-timeout: 5s

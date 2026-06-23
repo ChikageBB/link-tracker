@@ -19,3 +19,25 @@ spring:
 
 app:
   access-type: ORM
+  stackoverflow:
+    key: ${STACKOVERFLOW_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+    access-token: ${STACKOVERFLOW_ACCESS_KEY} # Use env variable. DO NOT KEEP TOKEN HERE
+    base-url: https://api.stackexchange.com/2.3
+  github:
+    token: ${GITHUB_TOKEN} # Use env variable. DO NOT KEEP TOKEN HERE
+    base-url: https://api.github.com
+  bot:
+    url: http://localhost:8080
+  scheduler:
+    interval: 60000
+    batch-size: 100
+    thread-count: 4
+clients:
+  bot:
+    base-url: http://localhost:8080
+    connect-timeout: 5s
+    read-timeout: 5s
+  scrapper:
+    base-url: http://localhost:8081
+    connect-timeout: 5s
+    read-timeout: 5s

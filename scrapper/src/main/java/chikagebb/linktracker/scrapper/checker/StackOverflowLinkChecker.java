@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StackOverflowLinkChecker implements LinkChecker {
 
-    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("stackoverflow\\.com/question/(\\d+)");
+    private static final Pattern STACKOVERFLOW_PATTERN = Pattern.compile("stackoverflow\\.com/questions/(\\d+)");
     private final StackOverflowClient stackOverflowClient;
 
     @Override
