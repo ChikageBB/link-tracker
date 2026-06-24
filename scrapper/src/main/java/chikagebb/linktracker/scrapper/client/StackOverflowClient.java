@@ -10,14 +10,12 @@ import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@EnableConfigurationProperties(StackoverflowProperties.class)
 public class StackOverflowClient {
 
     private final StackoverflowProperties props;

@@ -1,6 +1,15 @@
+spring:
+  liquibase:
+    change-log: file:../migrations/changelog-master.xml
+  jpa:
+    hibernate:
+      ddl-auto: none
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
 app:
   telegram:
-    url: ${wiremock.server.baseurl}/bot
+    url: ${wiremock.server.baseUrl}/bot
     token: test-token
     update-listener-sleep: 1s
     debug: true

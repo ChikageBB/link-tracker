@@ -6,7 +6,7 @@ spring:
     name: scrapper
   liquibase:
     enabled: true
-    change-log: file:migrations/changelog-master.xml
+    change-log: file:../migrations/changelog-master.xml
   datasource:
     url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}

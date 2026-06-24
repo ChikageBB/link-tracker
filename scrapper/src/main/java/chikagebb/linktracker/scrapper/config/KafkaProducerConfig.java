@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.avro.specific.SpecificRecord;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.kafka.autoconfigure.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableConfigurationProperties(KafkaTopicProperties.class)
 public class KafkaProducerConfig {
 
     private final KafkaProperties kafkaProperties;
