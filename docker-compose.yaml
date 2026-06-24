@@ -7,19 +7,217 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 3
     networks:
       - app-network
 
+  liquibase:
+    image: liquibase/liquibase:4.29
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command:
+      - --searchPath=/changesets
+      - --changelog-file=changelog-master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      - --username=${POSTGRES_USER}
+      - --password=${POSTGRES_PASSWORD}
+      - update
+    volumes:
+      - ./migrations:/changesets
+    networks:
+      - app-network
+
+  wiremock:
+    image: wiremock/wiremock:3.13.0
+    ports:
+      - "8089:8080"
+    volumes:
+      - ./wiremock:/home/wiremock
+    command: --global-response-templating --verbose
+    networks:
+      - app-network
+
+  bot:
+    build:
+      context: .
+      dockerfile: bot/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      APP_TELEGRAM_TOKEN: test-token
+      APP_TELEGRAM_URL: http://wiremock:8080/bot
+      CLIENTS_SCRAPPER_BASE_URL: http://scrapper:8081
+      GRPC_SERVER_PORT: -1
+    depends_on:
+      - wiremock
+    networks:
+      - app-network
+
+  scrapper:
+    build:
+      context: .
+      dockerfile: scrapper/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      APP_COMMUNICATION_TYPE: http
+      APP_SCHEDULER_INTERVAL: 999999999
+      APP_GITHUB_TOKEN: test-token
+      APP_STACKOVERFLOW_KEY: test-key
+      APP_STACKOVERFLOW_ACCESS_TOKEN: test-token
+      CLIENTS_BOT_BASE_URL: http://bot:8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATA_REDIS_CLUSTERS_NODES: valkey-1:6379,valkey-2:6379,valkey-3:6379,valkey-4:6379,valkey-5:6379,valkey-6:6379
+      APP_CACHE_ENABLED: ${APP_CACHE_ENABLED:-true}
+      SPRING_LIQUIBASE_ENABLED: "false"
+      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-default}
+    depends_on:
+      bot:
+        condition: service_started
+      liquibase:
+        condition: service_completed_successfully
+      valkey-init:
+        condition: service_completed_successfully
+    networks:
+      - app-network
+
+  valkey-csc:
+    image: valkey/valkey:8
+    ports:
+      - "6390:6379"
+    command: valkey-server --enable-debug-command yes
+    networks:
+      - app-network
+
+  valkey-1:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-1
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-1-data:/data
+
+  valkey-2:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-2
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-2-data:/data
+
+  valkey-3:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-3
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-3-data:/data
+
+  valkey-4:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-4
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-4-data:/data
+
+  valkey-5:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-5
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-5-data:/data
+
+  valkey-6:
+    image: valkey/valkey:8
+    command: >
+      valkey-server
+      --cluster-enabled yes
+      --cluster-config-file nodes.conf
+      --cluster-node-timeout 5000
+      --cluster-announce-hostname valkey-6
+      --cluster-announce-port 6379
+      --cluster-announce-bus-port 16379
+    networks:
+      - app-network
+    volumes:
+      - valkey-6-data:/data
+
+  valkey-init:
+    image: valkey/valkey:8
+    depends_on:
+      - valkey-1
+      - valkey-2
+      - valkey-3
+      - valkey-4
+      - valkey-5
+      - valkey-6
+    command: >
+      sh -c "sleep 5 &&
+      valkey-cli --cluster create
+      valkey-1:6379 valkey-2:6379 valkey-3:6379
+      valkey-4:6379 valkey-5:6379 valkey-6:6379
+      --cluster-replicas 1 --cluster-yes"
+    networks:
+      - app-network
+
 volumes:
   postgres-data:
+  valkey-1-data:
+  valkey-2-data:
+  valkey-3-data:
+  valkey-4-data:
+  valkey-5-data:
+  valkey-6-data:
 
 networks:
   app-network:
     driver: bridge
+
