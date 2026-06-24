@@ -16,6 +16,16 @@ spring:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
+  data:
+    redis:
+      cluster:
+        nodes:
+          - valkey-1:6379
+          - valkey-2:6379
+          - valkey-3:6379
+          - valkey-4:6379
+          - valkey-5:6379
+          - valkey-6:6379
 
 app:
   access-type: ORM
@@ -43,6 +53,9 @@ app:
   outbox:
     interval: 2000
     max-attempts: 5
+  cache:
+    links-ttl: PT5M
+    enabled: true
 clients:
   bot:
     base-url: http://localhost:8080
