@@ -8,6 +8,8 @@ import chikagebb.linktracker.scrapper.repository.ChatRepository;
 import chikagebb.linktracker.scrapper.repository.LinkRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ public class LinkService {
     private final ChatRepository chatRepository;
 
     @Transactional
+    @CacheEvict(cacheNames = "links", key = "#chatId", beforeInvocation = true)
     public LinkResponse add(Long chatId, AddLinkRequest addLinkRequest) {
 
         if (!chatRepository.exists(chatId)) {
@@ -42,6 +45,7 @@ public class LinkService {
     }
 
     @Transactional
+    @CacheEvict(cacheNames = "links", key = "#chatId", beforeInvocation = true)
     public LinkResponse delete(Long chatId, RemoveLinkRequest removeLinkRequest) {
         if (!chatRepository.exists(chatId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Чат не найден: " + chatId);
@@ -62,6 +66,7 @@ public class LinkService {
     }
 
     @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "links", key = "#chatId")
     public ListLinksResponse getAll(Long chatId) {
 
         if (!chatRepository.exists(chatId)) {
