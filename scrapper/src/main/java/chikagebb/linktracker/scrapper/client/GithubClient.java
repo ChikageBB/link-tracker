@@ -8,14 +8,12 @@ import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@EnableConfigurationProperties(GithubProperties.class)
 public class GithubClient {
 
     private final GithubProperties githubProperties;

@@ -1,4 +1,4 @@
-package chikagebb.linktracker.bot;
+package chikagebb.linktracker.bot.bot;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;

@@ -3,13 +3,11 @@ package chikagebb.linktracker.scrapper.config;
 import chikagebb.linktracker.scrapper.client.bot.api.UpdatesApi;
 import chikagebb.linktracker.scrapper.client.bot.invoker.ApiClient;
 import chikagebb.linktracker.scrapper.properties.ClientsProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(ClientsProperties.class)
 public class BotClientConfig {
 
     @Bean

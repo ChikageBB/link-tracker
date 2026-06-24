@@ -19,6 +19,17 @@ app:
     interval: 60000
     batch-size: 100
     thread-count: 4
+  kafka:
+    topic:
+      name: link-updates
+      partitions: 1
+      replicas: 1
+      min-insync-replicas: 1
+      schema-registry-url: mock://test
+  outbox:
+    interval: 1000
+  communication:
+    type: http
 clients:
   bot:
     base-url: http://localhost:8080

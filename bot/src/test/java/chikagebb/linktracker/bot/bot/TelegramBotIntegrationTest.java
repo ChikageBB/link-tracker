@@ -1,4 +1,4 @@
-package chikagebb.linktracker.bot;
+package chikagebb.linktracker.bot.bot;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import chikagebb.linktracker.bot.IntegrationTest;
 import chikagebb.linktracker.bot.initializer.TelegramCommandInitializer;
 import chikagebb.linktracker.bot.listener.TelegramUpdateListener;
 import chikagebb.linktracker.bot.properties.TelegramProperties;
@@ -42,7 +43,7 @@ import org.wiremock.spring.EnableWireMock;
 @SpringBootTest
 @EnableWireMock
 @ActiveProfiles("test")
-public class TelegramBotIntegrationTest {
+public class TelegramBotIntegrationTest extends IntegrationTest {
 
     @MockitoBean
     TelegramCommandInitializer commandInitializer;
